@@ -20,10 +20,14 @@
                       v-for="(hname, idx) in red_ban"
                       :key="'red-ban-' + idx"
                     >
-                      <hero-display :heroname="hname" :isRedSide="true" />
+                      <v-expand-transition>
+                        <hero-display :heroname="hname" :isRedSide="true" v-show="hero_bp_display"/>
+                      </v-expand-transition>
                     </v-col>
                     <v-col cols="2">
-                      <hero-display :heroname="'ban'" :isRedSide="true" />
+                      <v-expand-transition>
+                        <hero-display :heroname="'ban'" :isRedSide="true" v-show="hero_bp_display"/>
+                      </v-expand-transition>
                     </v-col>
                   </v-row>
                 </v-container>
@@ -36,14 +40,18 @@
                   <v-row no-gutters>
                     <v-col cols="2"> </v-col>
                     <v-col cols="2">
-                      <hero-display :heroname="'ban'" :isRedSide="false" />
+                      <v-expand-transition>
+                        <hero-display :heroname="'ban'" :isRedSide="false" v-show="hero_bp_display"/>
+                      </v-expand-transition>
                     </v-col>
                     <v-col
                       cols="2"
                       v-for="(hname, idx) in blue_ban"
                       :key="'blue-ban-' + idx"
                     >
-                      <hero-display :heroname="hname" :isRedSide="false" />
+                      <v-expand-transition>
+                        <hero-display :heroname="hname" :isRedSide="false" v-show="hero_bp_display"/>
+                      </v-expand-transition>
                     </v-col>
                   </v-row>
                 </v-container>
@@ -55,7 +63,9 @@
                 v-for="(hname, idx) in red_hero_stat"
                 :key="'red-' + idx"
               >
-                <hero-display :heroname="hname" :isRedSide="true" />
+                <v-expand-transition>
+                  <hero-display :heroname="hname" :isRedSide="true" v-show="hero_bp_display"/>
+                </v-expand-transition>
               </v-col>
               <v-col cols="2">
                 <match-display
@@ -71,7 +81,9 @@
                 v-for="(hname, idx) in blue_hero_stat"
                 :key="'blue-' + idx"
               >
-                <hero-display :heroname="hname" :isRedSide="false" />
+                <v-expand-transition>
+                  <hero-display :heroname="hname" :isRedSide="false" v-show="hero_bp_display"/>
+                </v-expand-transition>
               </v-col>
             </v-row>
           </v-container>
@@ -134,6 +146,7 @@
 
               <v-card-actions>
                 <v-btn @click="display = !display" text>{{display?"隐藏":"显示"}}</v-btn>
+                <v-btn @click="hero_bp_display = !hero_bp_display" text>{{hero_bp_display?"英雄隐藏":"英雄显示"}}</v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
@@ -222,7 +235,8 @@ export default {
     teamright: "班",
     scoreright: "0",
     matchname:"决赛",
-    display:false
+    display:false,
+    hero_bp_display:false,
   }),
 
   methods:{
